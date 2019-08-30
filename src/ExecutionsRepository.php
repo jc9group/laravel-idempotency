@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jc9Group\Idempotency;
 
+use Jc9Group\Idempotency\Exceptions\IdempotencyKeyDoesNotExistsException;
 use Jc9Group\Idempotency\Exceptions\RepositoryUnavailableException;
 
 interface ExecutionsRepository
@@ -13,6 +14,7 @@ interface ExecutionsRepository
      * @param string $idempotencyKey
      *
      * @throws RepositoryUnavailableException
+     * @throws IdempotencyKeyDoesNotExistsException
      */
     public function markAsExecuted(string $executableName, string $idempotencyKey): void;
 
