@@ -42,6 +42,7 @@ final class RedisExecutionsRepository implements ExecutionsRepository
             $key = $this->getFullKey($executableName, $idempotencyKey);
             $this->redisClient->set($key, $dieTime->format(\DateTime::ATOM));
             $this->redisClient->expireat($key, $dieTime->getTimestamp());
+            return;
         }
 
         throw new IdempotencyKeyDoesNotExistsException(
