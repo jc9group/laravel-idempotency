@@ -10,21 +10,26 @@ use Jc9Group\Idempotency\Exceptions\RepositoryUnavailableException;
 interface ExecutionsRepository
 {
     /**
-     * @param string $executableName
-     * @param string $idempotencyKey
+     * @param string      $executableName
+     * @param string      $idempotencyKey
+     * @param string|null $executionResult
      *
      * @throws RepositoryUnavailableException
      * @throws IdempotencyKeyDoesNotExistsException
      */
-    public function markAsExecuted(string $executableName, string $idempotencyKey): void;
+    public function markAsExecuted(
+        string $executableName,
+        string $idempotencyKey,
+        string $executionResult = null
+    ): void;
 
     /**
      * @param string $executableName
      * @param string $idempotencyKey
      *
-     * @return bool
+     * @return Execution|null
      *
      * @throws RepositoryUnavailableException
      */
-    public function hasBeenExecuted(string $executableName, string $idempotencyKey): bool;
+    public function getExecution(string $executableName, string $idempotencyKey): ?Execution;
 }
